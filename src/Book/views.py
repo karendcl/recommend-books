@@ -1,8 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from .models import Book
-import sys
-import os
-from django.conf import settings
+from ..code import trial
 
 def create_document(request):
     if request.method == 'POST':

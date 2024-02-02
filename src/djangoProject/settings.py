@@ -125,4 +125,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-FILES_DIR = os.path.abspath('../..')
