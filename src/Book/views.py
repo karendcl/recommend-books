@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse
+#send a message to the user
+from django.contrib import messages
 from .models import Book
 
 from pathlib import Path
@@ -22,11 +24,11 @@ def create_document(request):
         book = Book(title=title, author=author, image_url=img)
         book.save()
 
-        trial.Add_New_Document(text, f'{title} by {author}')
+        trial.Add_New_Document(text, book.id)
 
-        return HttpResponse('Document Created')
+        messages.success(request, 'Document created successfully')
 
-    return render(request, 'create_document.html')
+    return render(request, 'create_book.html')
 
 def load_all_books(request):
     books = Book.objects.all()
@@ -34,7 +36,9 @@ def load_all_books(request):
 
 def load_recommendations(request):
     if request.method == 'POST':
+
         books = request.POST.getlist('books')
+        print(books)
         books = [int(book) for book in books]
         suggestions = trial.make_suggestion(books)
 

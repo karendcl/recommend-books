@@ -5,14 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="152851c1-6749-45f9-b0f9-d03a80c2003d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/create_book.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Book/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Book/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Book/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Book/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/djangoProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/4..txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/French Revolution 2 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/French Revolution 3 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/French Revolution 4 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/French Revolution 5 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/French Revolution 6 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/French Revolution 7 .txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/French Revolution.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/New Document.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Docs/New Document2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/trial.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/trial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/HomePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/HomePage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Recommended.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Recommended.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Styles.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/ViewBooks.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ViewBooks.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,12 +32,22 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2bpfHQOD0yLKJ4H0B65llBMvWFi" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -33,6 +55,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "Django Server.src.executor": "Run",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -91,6 +114,7 @@
       <option name="presentableId" value="Default" />
       <updated>1706916855210</updated>
       <workItem from="1706916856381" duration="3070000" />
+      <workItem from="1706930354678" duration="5221000" />
     </task>
     <servers />
   </component>

@@ -10,7 +10,12 @@ import pickle
 from nltk.tokenize import RegexpTokenizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
+import os
+from pathlib import Path
 
+
+currd = os.getcwd()
+directory = os.path.join(currd, 'code')
 def load_docs() -> list:
     """
     Load the documents from the /Docs folder.
@@ -20,9 +25,12 @@ def load_docs() -> list:
         list: the list of documents
     """
     data = []
+    global directory
+
+    dir = os.path.join(directory, 'Docs', '*.txt')
 
     #for file, replace with the cleaned text
-    for file in glob.glob("Docs/*.txt"):
+    for file in glob.glob(directory):
         with open(file, 'r') as f:
             data1 = f.read()
             processed = clean_text(data1)
@@ -88,6 +96,8 @@ Returns:
 
     """
 
+
+
     tokenizer = RegexpTokenizer(r'\w+')
 
     count_vectorizer = TfidfVectorizer(tokenizer=tokenizer.tokenize, stop_words='english', lowercase=True, ngram_range=(1,3))
@@ -107,14 +117,14 @@ Returns:
         print("\n")
 
     #save lda model to file to be retrained later
-    with open('lda_model.pkl', 'wb') as f:
+    with open(os.path.join(directory,'lda_model.pkl'), 'wb') as f:
         pickle.dump(model, f)
 
     #save the count vectorizer to file to be retrained later
-    with open('count_vectorizer.pkl', 'wb') as f:
+    with open(os.path.join(directory,'count_vectorizer.pkl'), 'wb') as f:
         pickle.dump(count_vectorizer, f)
 
-    with open('lda_matrix.pkl', 'wb') as f:
+    with open(os.path.join(directory, 'lda_matrix.pkl'), 'wb') as f:
         pickle.dump(lda_matrix, f)
 
     #build document-topic matrix
@@ -152,25 +162,29 @@ def Add_New_Document(text, title):
 
     cleaned_text = [clean_text(text)]
 
+    dir1 = os.path.join(directory, 'Docs', '*.txt')
+
     #count how many documents there are
     count = 0
-    for file in glob.glob("Docs/*.txt"):
+    for file in glob.glob(dir1):
         count += 1
 
-    #save it to a txt
-    with open(f'Docs/{title}.txt', 'w') as f:
+    dir = os.path.join(directory, 'Docs', f'{title}.txt')
+
+    #create a file in directory
+    with open(dir, 'w') as f:
         f.write(cleaned_text[0])
 
     #see if the quantity of documents changed
     new_count = 0
-    for file in glob.glob("Docs/*.txt"):
+    for file in glob.glob(dir1):
         new_count += 1
 
     if new_count > count:
-        with open('lda_model.pkl', 'rb') as f:
+        with open(os.path.join(directory,'lda_model.pkl'), 'rb') as f:
             model = pickle.load(f)
 
-        with open('count_vectorizer.pkl', 'rb') as f:
+        with open(os.path.join(directory,'count_vectorizer.pkl'), 'rb') as f:
             count_vectorizer = pickle.load(f)
 
         new_data = count_vectorizer.transform(cleaned_text)
@@ -184,13 +198,13 @@ def Add_New_Document(text, title):
 
 
         #save the new model and count vectorizer
-        with open('lda_model.pkl', 'wb') as f:
+        with open(os.path.join(directory,'lda_model.pkl'), 'wb') as f:
             pickle.dump(lda_matrix, f)
 
-        with open('count_vectorizer.pkl', 'wb') as f:
+        with open(os.path.join(directory,'count_vectorizer.pkl'), 'wb') as f:
             pickle.dump(count_vectorizer, f)
 
-        with open('lda_matrix.pkl', 'wb') as f:
+        with open(os.path.join(directory,'lda_matrix.pkl'), 'wb') as f:
             pickle.dump(topic_dist, f)
 
         # insert the new document into the document-topic matrix
@@ -226,7 +240,7 @@ def make_suggestion(docs_read):
     """
 
     #load model
-    with open('lda_matrix.pkl', 'rb') as f:
+    with open(os.path.join(directory,'lda_matrix.pkl'), 'rb') as f:
         model = pickle.load(f)
 
     count = len(model)
