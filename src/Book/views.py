@@ -1,6 +1,16 @@
 from django.shortcuts import render, HttpResponse
 from .models import Book
-from ..code import trial
+
+from pathlib import Path
+import os, sys
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+#Add another file that is outside of the project
+sys.path.append(os.path.join(BASE_DIR, 'code'))
+
+import trial
 
 def create_document(request):
     if request.method == 'POST':
@@ -20,7 +30,7 @@ def create_document(request):
 
 def load_all_books(request):
     books = Book.objects.all()
-    return render(request, 'all_books.html', {'books': books})
+    return render(request, 'ViewBooks.html', {'books': books})
 
 def load_recommendations(request):
     if request.method == 'POST':
@@ -31,7 +41,7 @@ def load_recommendations(request):
         #map the suggestions to the books
         suggestions = [Book.objects.get(id=suggestion) for suggestion in suggestions]
 
-        return render(request, 'recommendations.html', {'suggestions': suggestions})
+        return render(request, 'Recommended.html', {'suggestions': suggestions})
 
     else:
-        return render(request, 'all_books.html')
+        return render(request, 'ViewBooks.html')

@@ -4,15 +4,15 @@
 <html>
 <head>
     <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="Styles.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href= '{% static "Styles.css" %}' media="screen" />
 </head>
 <body>
     <header>
     <nav class="dropdownmenu">
         <ul>
-            <li><a href="HomePage.html"> Home Page </a></li>
-            <li><a href="ViewBooks.html"> View Books </a></li>
-            <li><a href="Recommended.html"> Recommended for You </a></li>
+            <li><a href='/'> Home Page </a></li>
+            <li><a href="/all_books"> View Books </a></li>
+            <li><a href="/recommendations/"> Recommended for You </a></li>
         </ul>
     </nav>
     </header>
