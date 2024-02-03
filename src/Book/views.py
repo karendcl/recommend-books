@@ -22,11 +22,17 @@ def create_document(request):
         img = request.POST.get('img')
 
         book = Book(title=title, author=author, image_url=img)
-        book.save()
 
-        trial.Add_New_Document(text, book.id)
+        try:
+            #get highest id
+            pd = Book.objects.latest('id').id +1
+            trial.Add_New_Document(text, pd)
+            book.save()
+            messages.success(request, 'Document created successfully')
+        except:
+            messages.error(request, 'Document already exists')
+            return render(request, 'create_book.html')
 
-        messages.success(request, 'Document created successfully')
 
     return render(request, 'create_book.html')
 
