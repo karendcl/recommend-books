@@ -178,3 +178,26 @@ button[type="submit"]:hover {
 .Wrap_Button button::selection {
     background: #ffc8ff;
 }
+
+.Onclick_Button button {
+    background: #30A6E6;
+    color: #FFFFFF;
+    display: block;
+    font: bold 22px/40px sans-serif;
+    padding: 3px 8px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    transition: all .25s ease;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.Onclick_Button button:hover {
+    background: #000000;
+}

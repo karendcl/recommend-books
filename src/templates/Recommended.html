@@ -1,3 +1,15 @@
 {% extends "Index.html" %} {% block content %}
-        Recommended Books Page
+<div class="wrapper">
+    
+        {% for i in suggestions %}
+        <div class="container">
+                {{ i.title }}
+            <img src="{{i.image_url}}" alt="image">
+        </div>
+            <br>
+        {% endfor %}
+        </div>
+        <div class="Onclick_Button">
+        <button onclick="location.href='/'">Got it</button>
+</div>
 {% endblock content %}
