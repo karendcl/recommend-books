@@ -1,20 +1,39 @@
 {% extends "Index.html" %} 
 {% block content %}
+
+
         
-    <form action="{% url 'recommendations' %}" method="post">
+    <form action="{% url 'recommendations' %}" method="POST">
         {% csrf_token %}
+
+    <div class="wrapper">
     
     {% for i in books %}
-        <input type="checkbox" value="{{ i.id }}"> {{i.title}}<br>
-        <img src="{{i.image_url}}" alt="image" style="width: 20%; height: 20%;">
+    <div class="container">
+        <input type="checkbox" name="books" value="{{ i.id }}" id="{{ i.id }}"> {{i.title}}<br>
+        <label for="{{ i.id }}">
+        <img src="{{i.image_url}}" alt="image">
+    </label>
+    </div>
         <br>
     {% endfor %}
-    
-{#    button on click send a rqst to recommendations with the array selected in the request body#}
+    </div>
+
     <button type="submit" >Submit</button>
+    <script>
+        function TakeIdsChecked()
+        {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const Ids = Array.from(checkboxes).map(checkbox => checkbox.value);
+    
+            return Ids
+        }
+    
+        const SubmitButton = document.querySelector('button[type="submit"]');
+        SubmitButton.addEventListener('click', () => {const Ids = TakeIdsChecked(); });
+    
+    </script>
     </form>
-    
-    
     
 {% endblock content %}
 

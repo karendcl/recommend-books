@@ -52,3 +52,129 @@ main {
 .dropdownmenu li:hover a {
     background: #000000;
 }
+
+.wrapper {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    display: flex;
+    place-items: center;
+}
+
+.container {
+    height: 200px;
+    width: 150px;
+    background-color: #ffffff;
+    box-shadow: 0 0 25px rgba(17, 1, 68, 0.08);
+    border-radius: 15px;
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.container img {
+    width: 78%;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+button[type="submit"] {
+    background: #30A6E6;
+    color: #FFFFFF;
+    display: block;
+    font: bold 22px/40px sans-serif;
+    padding: 3px 8px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    transition: all .25s ease;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+button[type="submit"]:hover {
+    background: #000000;
+}
+
+.add_book {
+    background: #f8f4e5;
+    padding: 50px 100px;
+    border: 2px solid rgba(0,0,0,1);
+    box-shadow: 15px 15px 1px #ffa580, 15px 15px 1px 2px rgba(0,0,0,1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add_book input[type="text"] {
+    display: block;
+    width: 100%;
+    font-size: 14pt;
+    line-height: 14pt * 2;
+    font-family: 'Gill Sans';
+    margin-bottom: 14pt * 2;
+    border: none;
+    border-bottom: 5px solid rgba(0,0,0,1);
+    background: #f8f4e5;
+    min-width: 250px;
+    padding-left: 5px;
+    outline: none;
+    color: rgba(0,0,0,1);
+}
+
+.add_book input[type="text"]:focus {
+    border-bottom: 5px solid #ffa580;
+}
+
+.add_book textarea {
+    border-bottom: 5px solid rgba(0,0,0,1);
+    border-top: 5px solid rgba(0,0,0,1);
+    border-left: 5px solid rgba(0,0,0,1);
+    border-right: 5px solid rgba(0,0,0,1);
+    background: #f8f4e5;
+    padding: 30px;
+}
+
+.add_book textarea:focus {
+    border-bottom: 5px solid #ffa580;
+    border-top: 5px solid #ffa580;
+    border-left: 5px solid #ffa580;
+    border-right: 5px solid #ffa580;
+}
+
+.Wrap_Button button{
+    display: block;
+    margin: 0 auto;
+    line-height: 14pt * 2;
+    padding: 0 20px;
+    background: #ffa580;
+    letter-spacing: 2px;
+    transition: .2s all ease-in-out;
+    border: 1px solid rgba(0,0,0,1);
+    box-shadow: 3px 3px 1px 1px #95a4ff, 3px 3px 1px 2px rgba(0,0,0,1);
+}
+
+.Wrap_Button button:hover {
+    background: rgba(0,0,0,1);
+    color: white;
+    border: 1px solid rgba(0,0,0,1)
+}
+
+.Wrap_Button button::selection {
+    background: #ffc8ff;
+}

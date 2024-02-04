@@ -1,6 +1,7 @@
 {% extends 'Index.html' %}
 
 {% block content %}
+<div class="add_book">
     <form method="POST" action="/add_book/">
         {% csrf_token %}
         <label for="title">Title:</label>
@@ -9,9 +10,13 @@
         <input type="text" id="author" name="author" required>
         <label for="img">Image Url:</label>
         <input type="text" id="img" name="img" required>
-        <label for="text">Text</label>
+        <label for="text">Text:</label>
+        <br>
         <textarea id="text" name="text" required></textarea>
         
-        <button type="submit">Add</button>
+        <div class="Wrap_Button">
+        <button type="submit" id="add_book_button">Add Book</button>
+    </div>
     </form>
+</div>
 {% endblock content %}
