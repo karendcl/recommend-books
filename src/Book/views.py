@@ -2,6 +2,8 @@ from django.shortcuts import render, HttpResponse
 #send a message to the user
 from django.contrib import messages
 from .models import Book
+import requests
+import json
 
 from pathlib import Path
 import os, sys
@@ -16,12 +18,14 @@ import trial
 
 def create_document(request):
     if request.method == 'POST':
-        text = request.POST.get('text')
+        text = request.POST['text']
         title = request.POST.get('title')
         author = request.POST.get('author')
         img = request.POST.get('img')
 
         book = Book(title=title, author=author, image_url=img)
+
+
 
         try:
             #get highest id
@@ -44,11 +48,11 @@ def load_recommendations(request):
     if request.method == 'POST':
 
         books = request.POST.getlist('books')
-        print(books)
         books = [int(book) for book in books]
         suggestions = trial.make_suggestion(books)
 
         #map the suggestions to the books
+        suggestions = [i+1 for i in suggestions]
         suggestions = [Book.objects.get(id=suggestion) for suggestion in suggestions]
 
         return render(request, 'Recommended.html', {'suggestions': suggestions})

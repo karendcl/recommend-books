@@ -14,8 +14,8 @@ import os
 from pathlib import Path
 
 
-currd = os.getcwd()
-directory = os.path.join(currd, 'code')
+directory = os.getcwd()
+directory = os.path.join(directory, 'code')
 def load_docs() -> list:
     """
     Load the documents from the /Docs folder.
@@ -29,14 +29,14 @@ def load_docs() -> list:
 
     dir = os.path.join(directory, 'Docs', '*.txt')
 
+
     #for file, replace with the cleaned text
-    for file in glob.glob(directory):
+    for file in glob.glob(dir):
+        print(file)
         with open(file, 'r') as f:
-            data1 = f.read()
+            data1 = f.read( )
             processed = clean_text(data1)
             data.append(processed)
-        with open(file, 'w') as f:
-            f.write(processed)
 
     return data
 
@@ -173,6 +173,7 @@ def Add_New_Document(text, title):
 
     #create a file in directory
     with open(dir, 'w') as f:
+        #encode the cleaned text to utf-8
         f.write(cleaned_text[0])
 
     #see if the quantity of documents changed
@@ -223,6 +224,7 @@ def Load_First_Time():
         list: the list of documents
     """
     descriptions = load_docs()
+    print(descriptions)
     lda_model(descriptions, Amount_of_topics(descriptions))
     return descriptions
 
@@ -238,6 +240,9 @@ def make_suggestion(docs_read):
 
 
     """
+
+    #map docs_read to the correct indices (0 to n-1)
+    docs_read = [i-1 for i in docs_read]
 
     #load model
     with open(os.path.join(directory,'lda_matrix.pkl'), 'rb') as f:
