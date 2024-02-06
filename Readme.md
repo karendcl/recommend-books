@@ -77,7 +77,7 @@ The books with the highest cosine similarity are then recommended to the user. W
 > #### Cosine Similarity
 > Cosine similarity is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them. The cosine of 0° is 1, and it is less than 1 for any other angle. It is thus a judgment of orientation and not magnitude: the closer the cosine is to 1, the smaller the angle and the greater the similarity.
 > The formula for the cosine similarity is:
-> $$\cos(\theta) = \frac{A \cdot B}{||A|| \cdot ||B||} = \frac{\sum_{i=1}^{n} A_i \cdot B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \cdot \sqrt{\sum_{i=1}^{n} B_i^2}} . 
+> $$\cos(\theta) = \frac{A \cdot B}{||A|| \cdot ||B||} $$. 
 > Where A and B are the vectors and ||A|| and ||B|| are the norms of the vectors.
 
 ## Insufficiencies
