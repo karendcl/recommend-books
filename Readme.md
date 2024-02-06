@@ -4,7 +4,7 @@
 > - [Karen D. Cantero Lopez C411](https://github.com/karendcl)
 > - [Luis A. Rodriguez Otero C411](https://github.com/Drackaro)
 
-## Porblem Description
+## Problem Description
 The problem is to recommend a series of books of similar
 topics to a user based on the books they have read.
 
