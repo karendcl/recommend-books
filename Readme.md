@@ -10,7 +10,7 @@ topics to a user based on the books they have read.
 
 ## Considerations taken into account
 
-- The corpus is composed of books' summaries and not the actual books because we couldn't find an existing database with the content. We also consider that a book's main topics must be discussed in a summary of it so the sorpus should suffice to make an accurate prediction.
+- The corpus is composed of books' summaries and not the actual books because we couldn't find an existing database with the content. We also consider that a book's main topics must be discussed in a summary of it so the corpus should suffice to make an accurate prediction.
 
 
 ## How to run the project
