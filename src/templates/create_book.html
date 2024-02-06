@@ -21,6 +21,9 @@
 </div>
 
 <div class="Bottom-Right_Button">
+<form action="/update/" method="post">
+    {% csrf_token %}
 <button type="submit" >Update Database</button>
+    </form>
 </div>
 {% endblock content %}

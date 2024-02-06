@@ -12,33 +12,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 import os
 from pathlib import Path
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
 
 
 directory = os.getcwd()
 directory = os.path.join(directory, 'code')
-def load_docs() -> list:
-    """
-    Load the documents from the /Docs folder.
-    The documents are expected to be in .txt format
-
-    Returns:
-        list: the list of documents
-    """
-    data = []
-    global directory
-
-    dir = os.path.join(directory, 'Docs', '*.txt')
-
-
-    #for file, replace with the cleaned text
-    for file in glob.glob(dir):
-        print(file)
-        with open(file, 'r') as f:
-            data1 = f.read()
-            processed = clean_text(data1)
-            data.append(processed)
-
-    return data
 
 def remove_stops(text : string, stops :list) -> string:
     """ Remove stop words and extra spaces from the text
@@ -81,7 +60,6 @@ def clean_text(text : string) -> string:
     return cleaned
 
 
-
 def lda_model(documents, num_topics=4):
     """ Perform Latent Dirichlet Allocation on the documents
     Save the model and the count vectorizer to be used later with new data
@@ -94,7 +72,6 @@ Returns:
     None
 
     """
-
     tokenizer = RegexpTokenizer(r'\w+')
 
     count_vectorizer = TfidfVectorizer(tokenizer=tokenizer.tokenize, stop_words='english', lowercase=True, ngram_range=(1,3))
@@ -131,18 +108,16 @@ def Amount_of_topics(documents):
     Returns:
         int: the amount of topics to be used
     """
-    return len(documents)//2 + 1
+    return 15
 
 
-def Add_New_Document(texts):
+def update(texts):
     """
     Fits the new document to the data without retraining it.
     Saves the new document to the Docs folder
 
     Parameters:
-        alldocs (list): the list of all documents
-        text (str): the text of the new document
-        title (str): the title of the new document
+        texts (list): all documents
 
     Returns:
         None
@@ -202,4 +177,27 @@ def make_suggestion(docs_read):
 
     #return indices of the most similar docs
     return [i[0] for i in docs_not_read][:5]
+
+def plot_scatter_clusters():
+    """
+    Plot a scatter plot of the clusters
+
+    Returns:
+        None
+
+    """
+    with open(os.path.join(directory, 'lda_matrix.pkl'), 'rb') as f:
+        model = pickle.load(f)
+
+    tsne = TSNE(n_components=2, random_state=0, perplexity=15)
+
+    X_2d = tsne.fit_transform(model)
+
+    plt.figure(figsize=(6, 5))
+    plt.scatter(X_2d[:, 0], X_2d[:, 1], c=model[:, 0], cmap='viridis')
+
+    plt.savefig(os.path.join(os.getcwd(),'static','clusters.png'))
+
+
+
 

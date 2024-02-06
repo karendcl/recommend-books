@@ -26,12 +26,6 @@ def create_document(request):
 
         try:
             book.save()
-
-            #process the whole data
-            books = Book.objects.all()
-            descriptions = [book.description for book in books]
-
-            trial.Add_New_Document(descriptions)
             messages.success(request, 'Document created successfully')
         except:
             messages.error(request, 'Document already exists')
@@ -41,6 +35,7 @@ def create_document(request):
     return render(request, 'create_book.html')
 
 def load_all_books(request):
+    trial.plot_scatter_clusters()
     books = Book.objects.all()
     return render(request, 'ViewBooks.html', {'books': books})
 
@@ -61,3 +56,12 @@ def load_recommendations(request):
 
     else:
         return render(request, 'ViewBooks.html')
+
+def update(request):
+    if request.method =='POST':
+        allbooks = Book.objects.all()
+        texts = [i.description for i in allbooks]
+        trial.update(texts)
+        messages.success(request, 'Model updated successfully')
+        return render(request, 'ViewBooks.html',{'books': allbooks})
+    return render(request, 'HomePage.html')
