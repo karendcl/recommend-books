@@ -5,21 +5,23 @@
         
     <form action="{% url 'recommendations' %}" method="POST">
         {% csrf_token %}
-
     <div class="wrapper">
     
     {% for i in books %}
     <div class="container">
-        <input type="checkbox" name="books" value="{{ i.id }}" id="{{ i.id }}"> {{i.title}}<br>
+        <input type="checkbox" class="checkbox" name="books" value="{{ i.id }}" id="{{ i.id }}"><br>
+        <div class="Photo">
         <label for="{{ i.id }}">
-        <img src="{{i.image_url}}" alt="image">
+        <img src="{{i.image_url}}" alt= "{{ i.title }}">
     </label>
+    </div>
     </div>
         <br>
     {% endfor %}
     </div>
-
+    <div class="Bottom-Right_Button">
     <button type="submit" >Submit</button>
+</div>
     </form>
     
 {% endblock content %}
