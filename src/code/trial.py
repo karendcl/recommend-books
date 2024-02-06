@@ -34,7 +34,7 @@ def load_docs() -> list:
     for file in glob.glob(dir):
         print(file)
         with open(file, 'r') as f:
-            data1 = f.read( )
+            data1 = f.read()
             processed = clean_text(data1)
             data.append(processed)
 
@@ -53,7 +53,6 @@ def remove_stops(text : string, stops :list) -> string:
     #remove stop words
     words = text.split()
     final = ' '.join([word for word in words if word not in stops])
-    final = final.translate(str.maketrans('', '', string.punctuation))
 
     #remove extra spaces
     while "  " in final:
@@ -96,8 +95,6 @@ Returns:
 
     """
 
-
-
     tokenizer = RegexpTokenizer(r'\w+')
 
     count_vectorizer = TfidfVectorizer(tokenizer=tokenizer.tokenize, stop_words='english', lowercase=True, ngram_range=(1,3))
@@ -106,8 +103,8 @@ Returns:
 
     model = LatentDirichletAllocation(n_components=num_topics, learning_method='online')
     lda_matrix = model.fit_transform(train_data)
-    lda_components = model.components_
 
+    lda_components = model.components_
     terms = count_vectorizer.get_feature_names_out()
 
     #print the topics
@@ -115,14 +112,6 @@ Returns:
         print(f"Top words for topic {i}\n")
         print([terms[i] for i in topic.argsort()[-10:]])
         print("\n")
-
-    #save lda model to file to be retrained later
-    with open(os.path.join(directory,'lda_model.pkl'), 'wb') as f:
-        pickle.dump(model, f)
-
-    #save the count vectorizer to file to be retrained later
-    with open(os.path.join(directory,'count_vectorizer.pkl'), 'wb') as f:
-        pickle.dump(count_vectorizer, f)
 
     with open(os.path.join(directory, 'lda_matrix.pkl'), 'wb') as f:
         pickle.dump(lda_matrix, f)
@@ -145,7 +134,7 @@ def Amount_of_topics(documents):
     return len(documents)//2 + 1
 
 
-def Add_New_Document(text, title):
+def Add_New_Document(texts):
     """
     Fits the new document to the data without retraining it.
     Saves the new document to the Docs folder
@@ -160,73 +149,10 @@ def Add_New_Document(text, title):
 
     """
 
-    cleaned_text = [clean_text(text)]
+    #clean data
+    texts = [clean_text(i) for i in texts]
+    lda_model(texts, Amount_of_topics(texts))
 
-    dir1 = os.path.join(directory, 'Docs', '*.txt')
-
-    #count how many documents there are
-    count = 0
-    for file in glob.glob(dir1):
-        count += 1
-
-    dir = os.path.join(directory, 'Docs', f'{title}.txt')
-
-    #create a file in directory
-    with open(dir, 'w') as f:
-        #encode the cleaned text to utf-8
-        f.write(cleaned_text[0])
-
-    #see if the quantity of documents changed
-    new_count = 0
-    for file in glob.glob(dir1):
-        new_count += 1
-
-    if new_count > count:
-        with open(os.path.join(directory,'lda_model.pkl'), 'rb') as f:
-            model = pickle.load(f)
-
-        with open(os.path.join(directory,'count_vectorizer.pkl'), 'rb') as f:
-            count_vectorizer = pickle.load(f)
-
-        new_data = count_vectorizer.transform(cleaned_text)
-
-        old_matrix = model.components_
-
-        lda_matrix = model.partial_fit(new_data)
-
-        new_data = new_data.reshape(1, -1)
-        topic_dist = lda_matrix.transform(new_data)
-
-
-        #save the new model and count vectorizer
-        with open(os.path.join(directory,'lda_model.pkl'), 'wb') as f:
-            pickle.dump(lda_matrix, f)
-
-        with open(os.path.join(directory,'count_vectorizer.pkl'), 'wb') as f:
-            pickle.dump(count_vectorizer, f)
-
-        with open(os.path.join(directory,'lda_matrix.pkl'), 'wb') as f:
-            pickle.dump(topic_dist, f)
-
-        # insert the new document into the document-topic matrix
-        doc_topic = pd.DataFrame(lda_matrix, columns=["Topic " + str(i) for i in range(len(old_matrix))],
-                                     index=["Doc " + str(i) for i in range(new_count)])
-        return doc_topic
-    else:
-        return "Document Already Exists"
-
-
-def Load_First_Time():
-    """
-    Load the documents for the first time and train the LDA model
-
-    Returns:
-        list: the list of documents
-    """
-    descriptions = load_docs()
-    print(descriptions)
-    lda_model(descriptions, Amount_of_topics(descriptions))
-    return descriptions
 
 def make_suggestion(docs_read):
     """
@@ -243,6 +169,8 @@ def make_suggestion(docs_read):
 
     #map docs_read to the correct indices (0 to n-1)
     docs_read = [i-1 for i in docs_read]
+
+    print(docs_read)
 
     #load model
     with open(os.path.join(directory,'lda_matrix.pkl'), 'rb') as f:
@@ -273,6 +201,5 @@ def make_suggestion(docs_read):
 
 
     #return indices of the most similar docs
-    return [i[0] for i in docs_not_read]
-
+    return [i[0] for i in docs_not_read][:5]
 

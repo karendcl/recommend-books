@@ -1,3 +1,19 @@
+{#print messages#}
+
+{#print suggestions#}
+
+
 {% extends "Index.html" %} {% block content %}
-        Recommended Books Page
+    
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+
+    {% for i in suggestions %}
+            {{ i.title }}
+    {% endfor %}
 {% endblock content %}

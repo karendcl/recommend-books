@@ -13,25 +13,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 #Add another file that is outside of the project
 sys.path.append(os.path.join(BASE_DIR, 'code'))
-
 import trial
 
 def create_document(request):
     if request.method == 'POST':
-        text = request.POST['text']
+        text = request.POST.get('text')
         title = request.POST.get('title')
         author = request.POST.get('author')
         img = request.POST.get('img')
 
-        book = Book(title=title, author=author, image_url=img)
-
-
+        book = Book(title=title, author=author, image_url=img, description=text)
 
         try:
-            #get highest id
-            pd = Book.objects.latest('id').id +1
-            trial.Add_New_Document(text, pd)
             book.save()
+
+            #process the whole data
+            books = Book.objects.all()
+            descriptions = [book.description for book in books]
+
+            trial.Add_New_Document(descriptions)
             messages.success(request, 'Document created successfully')
         except:
             messages.error(request, 'Document already exists')
@@ -54,6 +54,8 @@ def load_recommendations(request):
         #map the suggestions to the books
         suggestions = [i+1 for i in suggestions]
         suggestions = [Book.objects.get(id=suggestion) for suggestion in suggestions]
+
+        messages.success(request, 'Recommendations created successfully')
 
         return render(request, 'Recommended.html', {'suggestions': suggestions})
 
