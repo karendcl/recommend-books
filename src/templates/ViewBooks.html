@@ -20,19 +20,6 @@
     </div>
 
     <button type="submit" >Submit</button>
-    <script>
-        function TakeIdsChecked()
-        {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-            const Ids = Array.from(checkboxes).map(checkbox => checkbox.value);
-    
-            return Ids
-        }
-    
-        const SubmitButton = document.querySelector('button[type="submit"]');
-        SubmitButton.addEventListener('click', () => {const Ids = TakeIdsChecked(); });
-    
-    </script>
     </form>
     
 {% endblock content %}

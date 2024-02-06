@@ -1,19 +1,15 @@
-{#print messages#}
-
-{#print suggestions#}
-
-
 {% extends "Index.html" %} {% block content %}
+<div class="wrapper">
     
-{% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">
-        {{ message }}
-    </div>
-{% endfor %}
-
-
-
-    {% for i in suggestions %}
-            {{ i.title }}
-    {% endfor %}
+        {% for i in suggestions %}
+        <div class="container">
+                {{ i.title }}
+            <img src="{{i.image_url}}" alt="image">
+        </div>
+            <br>
+        {% endfor %}
+        </div>
+        <div class="Onclick_Button">
+        <button onclick="location.href='/'">Got it</button>
+</div>
 {% endblock content %}
