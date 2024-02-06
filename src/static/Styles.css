@@ -1,12 +1,28 @@
 {% load static %}
 
+/*hide scroll bar*/
+body ::-webkit-scrollbar {
+    display: none;
+}
+
 Body {
     background-image: url("Imagen1.jpg");
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+
+    background-color: #000000;
+
+/*    blend color and photo*/
+    background-blend-mode: darken;
+    background-color: rgba(0,0,0,0.5);
+
 }
 
+
 header {
-    background-color: #30A6E6;
+    background-color: #ffa580;
     color: #fff;
     display: flex;
 }
@@ -15,6 +31,13 @@ main {
     text-align: center;
     font-family:'Gill Sans';
     color: white;
+}
+
+.dropdownmenu{
+    position: relative;
+    display: inline-block;
+
+
 }
 
 .dropdownmenu ul, .dropdownmenu li {
@@ -35,7 +58,7 @@ main {
 }
 
 .dropdownmenu a {
-    background: #30A6E6;
+    background: #ffa580;
     color: #FFFFFF;
     display: block;
     font: bold 22px/40px sans-serif;
@@ -47,6 +70,11 @@ main {
     -ms-transition: all .25s ease;
     -moz-transition: all .25s ease;
     transition: all .25s ease;
+}
+
+/*hide scroll bar from wrapper*/
+.wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .dropdownmenu li:hover a {
@@ -62,6 +90,8 @@ main {
     flex-wrap: wrap;
     place-items: center;
     max-height: 75vh;
+    overflow-y: scroll;
+    width: 80vw;
 }
 
 .container {
@@ -91,8 +121,8 @@ main {
 }
 
 .container .checkbox:checked ~ .Photo img{
-    border-color: #30A6E6;
-    color: #30A6E6;
+    border-color: #ffa580;
+    color: #ffa580;
 }
 
 .container img {
@@ -112,7 +142,7 @@ input[type="checkbox"] {
 }
 
 button[type="submit"] {
-    background: #30A6E6;
+    background: #ffa580;
     color: #FFFFFF;
     display: block;
     font: bold 22px/40px sans-serif;
@@ -193,7 +223,7 @@ button[type="submit"]:hover {
     letter-spacing: 2px;
     transition: .2s all ease-in-out;
     border: 1px solid rgba(0,0,0,1);
-    box-shadow: 3px 3px 1px 1px #95a4ff, 3px 3px 1px 2px rgba(0,0,0,1);
+    box-shadow: 3px 3px 1px 1px #ffa580, 3px 3px 1px 2px rgba(0,0,0,1);
     bottom: 0;
     right: 0;
 }
@@ -209,7 +239,7 @@ button[type="submit"]:hover {
 }
 
 .Onclick_Button button {
-    background: #30A6E6;
+    background: #ffa580;
     color: #FFFFFF;
     display: block;
     font: bold 22px/40px sans-serif;

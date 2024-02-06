@@ -35,7 +35,6 @@ def create_document(request):
     return render(request, 'create_book.html')
 
 def load_all_books(request):
-    trial.plot_scatter_clusters()
     books = Book.objects.all()
     return render(request, 'ViewBooks.html', {'books': books})
 
@@ -46,13 +45,27 @@ def load_recommendations(request):
         books = [int(book) for book in books]
         suggestions = trial.make_suggestion(books)
 
+        scor = suggestions[1]
+        suggestions = suggestions[0]
+
         #map the suggestions to the books
         suggestions = [i+1 for i in suggestions]
         suggestions = [Book.objects.get(id=suggestion) for suggestion in suggestions]
 
+
+
+        print(suggestions)
+
         messages.success(request, 'Recommendations created successfully')
 
-        return render(request, 'Recommended.html', {'suggestions': suggestions})
+        scores = {}
+        for i in range(len(suggestions)):
+            scores[i] = scor[i]
+
+        print(scores)
+
+
+        return render(request, 'Recommended.html', {'suggestions': suggestions, 'scores': scores})
 
     else:
         return render(request, 'ViewBooks.html')
@@ -65,3 +78,6 @@ def update(request):
         messages.success(request, 'Model updated successfully')
         return render(request, 'ViewBooks.html',{'books': allbooks})
     return render(request, 'HomePage.html')
+
+def plot(request):
+    trial.plot_scatter_clusters()

@@ -48,6 +48,9 @@ def clean_text(text : string) -> string:
     Returns:
         str: the cleaned text
     """
+    #tokenize
+    text = text.lower()
+
     stops = stopwords.words('english')
     cleaned = remove_stops(text, stops)
 
@@ -108,7 +111,7 @@ def Amount_of_topics(documents):
     Returns:
         int: the amount of topics to be used
     """
-    return 15
+    return 10
 
 
 def update(texts):
@@ -128,6 +131,12 @@ def update(texts):
     texts = [clean_text(i) for i in texts]
     lda_model(texts, Amount_of_topics(texts))
 
+def determine_topics(vector):
+    tops = np.argsort(vector)[::-1]
+    tops = tops[:3]
+    if vector[tops[2]] > 0.3:
+        return tops
+    return tops[:2]
 
 def make_suggestion(docs_read):
     """
@@ -164,19 +173,33 @@ def make_suggestion(docs_read):
     #get avg of docs read
     avg_read = np.mean(docs_read, axis=0)
 
+    #determine the most relevant topics
+    topics = determine_topics(avg_read)
+
+
+    #reduce the model to the most relevant topics
+    model = model[:, topics]
+    avg_read = avg_read[topics]
+
     #order the docs not read by similarity to the avg of docs read
     def similarity(x):
-        return np.dot(avg_read, x)/(np.linalg.norm(avg_read)*np.linalg.norm(x))
+        #cosine similarity between vectors
+        return np.dot(x, avg_read) / (np.linalg.norm(x) * np.linalg.norm(avg_read))
 
     dict = {}
+
     for i in docs_not_read_ind:
         dict[i] = similarity(model[i])
 
     docs_not_read = sorted(dict.items(), key=lambda x: x[1], reverse=True)
 
+    print(avg_read)
+    ind = [i[0] for i in docs_not_read][:5]
+    rows = model[ind]
+    print(rows)
 
     #return indices of the most similar docs
-    return [i[0] for i in docs_not_read][:5]
+    return [i[0] for i in docs_not_read][:5] , [i[1] for i in docs_not_read][:5]
 
 def plot_scatter_clusters():
     """
