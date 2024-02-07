@@ -10,7 +10,10 @@ topics to a user based on the books they have read.
 
 ## Considerations taken into account
 
-- The corpus is composed of books' summaries and not the actual books because we couldn't find an existing database with the content. We also consider that a book's main topics must be discussed in a summary of it so the corpus should suffice to make an accurate prediction.
+- The corpus is composed of books' summaries and not the actual books because we couldn't find an existing database with the content.
+We also consider that a book's main topics must be discussed in a summary of it so the corpus should suffice to make an accurate prediction.
+- The books are in English so the model is trained with English books.
+
 
 
 ## How to run the project
@@ -51,6 +54,15 @@ The model is trained using the LDA model from the sklearn library. The number of
 (amount chosen by analyzing the results).
 We then represent the doc_topic distribution matrix and we save it as a pickle file so that it can be loaded with each search and the model doesn't have to be trained every time.
 
+> #### TfidfVectorizer
+> TfidfVectorizer is a method that transforms text to feature vectors that can be used as input to estimator.
+> It is a common method to convert text data to a matrix of token counts. It is important to note that the TfidfVectorizer
+> method also normalizes the data.
+> Tf-idf stands for term frequency-inverse document frequency, and the vectorizer uses this method to transform the data.
+> The term frequency is the number of times a term appears in a document, and the inverse document frequency is a measure of how much information the word provides, that is, whether the term is common or rare across all documents.
+> By using a TF-IDF we use a normalized estimation of the importance of a word in a document.
+
+
 ### Recommending
 The user is asked to select the books they have read from the books in the database.
 Each row in the doc_topic distribution matrix is then averaged to get the user's topic distribution.
@@ -64,8 +76,9 @@ The books with the highest cosine similarity are then recommended to the user. W
 
 > #### Cosine Similarity
 > Cosine similarity is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them. The cosine of 0° is 1, and it is less than 1 for any other angle. It is thus a judgment of orientation and not magnitude: the closer the cosine is to 1, the smaller the angle and the greater the similarity.
-
-##
+> The formula for the cosine similarity is:
+> $$\cos(\theta) = \frac{A \cdot B}{||A|| \cdot ||B||} $$. 
+> Where A and B are the vectors and ||A|| and ||B|| are the norms of the vectors.
 
 ## Insufficiencies
 - The model is trained on a small dataset and the topics are not always clear.
