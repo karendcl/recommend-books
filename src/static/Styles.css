@@ -1,5 +1,150 @@
 {% load static %}
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+.Full_Wrapper {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+.Recommended_Wrapper{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image_container{
+  height: 500px;
+  display: flex;
+  min-width: 400px;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: -55px;
+}
+.icon-image{
+  position: relative;
+  height: 70px;
+  width: 70px;
+  margin: 0 5px;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  background: #fff;
+}
+.icon-image .icon img{
+  position: absolute;
+  height: 95%;
+  width: 95%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #0396FF;
+}
+.icon-image::before{
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left: 50%;
+  top: -50px;
+  transform: translateX(-50%);
+}
+.icon-image .hover-image{
+  position: absolute;
+  height: 350px;
+  width: 300px;
+  bottom: 100px;
+  left: 33%;
+  z-index: 0;
+  transform: translateX(-50%);
+  border-radius: 25px;
+  pointer-events: none;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.5s ease, z-index 0s, left 0.5s ease ;
+  transition-delay: 0s, 0.5s, 0.5s;
+}
+.icon-image:hover .hover-image{
+  left: -200px;
+  z-index: 12;
+  transform: translateX(70px);
+  transition: left 0.5s ease, z-index 0s, transform 0.5s ease;
+  transition-delay: 0s, 0.5s, 0.5s;
+}
+.hover-image img{
+  position: absolute;
+  height: 100%;
+  width: 80%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  border-radius: 25px;
+}
+.hover-image .content{
+  position: absolute;
+  width: 100%;
+  bottom: -10px;
+  padding: 0 10px;
+}
+.content::before{
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  left: 50%;
+  bottom: -7px;
+  transform: rotate(45deg) translateX(-50%);
+  z-index: -1;
+}
+.content .details{
+  position: relative;
+  background: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+}
+.icon-image:hover .details{
+  transition: all 0.5s ease;
+  transition-delay: 0.9s;
+  opacity: 1;
+  transform: translateY(4px);
+  pointer-events: auto;
+}
+.details::before{
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  left: 51%;
+  bottom: -15px;
+  transform: rotate(45deg) translateX(-50%);
+  z-index: -1;
+}
+.content .details .name{
+ font-size: 20px;
+ font-weight: 500;
+}
+
+.content .details a:hover{
+  color: #0396FF;
+}
+.container .last .hover-image{
+  transition: none;
+}
+.container .last:hover .hover-image{
+  transition: 0;
+}
+.last:hover .details{
+  transition-delay: 0s;
+}
+
+
 /*hide scroll bar*/
 body ::-webkit-scrollbar {
     display: none;
@@ -11,7 +156,6 @@ Body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-
     background-color: #000000;
 
 /*    blend color and photo*/
@@ -28,16 +172,33 @@ header {
 }
 
 main {
-    text-align: center;
-    font-family:'Gill Sans';
+    display: flex;
+    flex-wrap: wrap;
     color: white;
+    text-align: left;
+    align-items: center;
+    height: 85vh;
+}
+
+.Left_Text {
+    width: 40%;
+    padding-left: 50px;
+    padding-right: 130px;
+    border-right: 2px solid white;
+    font-family: 'Lucida Sans';
+
+}
+
+.Right_Text {
+    float: right;
+    padding-right: 40px;
+    padding-left: 20px;
+    font-family: 'Courier New';
 }
 
 .dropdownmenu{
     position: relative;
     display: inline-block;
-
-
 }
 
 .dropdownmenu ul, .dropdownmenu li {
@@ -97,7 +258,7 @@ main {
 .container {
     height: 190px;
     width: 130px;
-    background-color: white;
+    background-color: transparent;
     box-shadow: 0 0 25px rgba(17, 1, 68, 0.08);
     border-radius: 15px;
     position: relative;
@@ -108,6 +269,8 @@ main {
 .Photo img {
     border-radius: 15px;
     border: 9px solid transparent;
+    border-color: #f8f4e5;
+    color: #f8f4e5;
 }
 
 .container .checkbox:hover ~ .Photo img {
@@ -121,8 +284,8 @@ main {
 }
 
 .container .checkbox:checked ~ .Photo img{
-    border-color: #ffa580;
-    color: #ffa580;
+    border-color: indigo;
+    color: indigo;
 }
 
 .container img {

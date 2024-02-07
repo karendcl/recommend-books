@@ -1,15 +1,32 @@
 {% extends "Index.html" %} {% block content %}
-<div class="wrapper">
+<div class="Full_Wrapper">
+    <div class="Recommended_Wrapper">
+    <div class="image_container">
+        {% for i in suggestions %}
+      <div class="icon-image">
+        <div class="icon">
+          <img src="{{i.image_url}}" alt= "{{ i.title }}"/>
+        </div>
+        <div class="hover-image one">
+          <div class="img">
+            <img src="{{i.image_url}}" alt= "{{ i.title }}" />
+          </div>
+          <div class="content">
+            <div class="details">
+              <div class="name"> {{i.title}} </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
     
         {% for i in suggestions %}
-        <div class="container">
         
-            <img src="{{i.image_url}}" alt="i.title">
-        </div>
-            <br>
         {% endfor %}
-        </div>
         <div class="Onclick_Button">
         <button onclick="location.href='/'">Got it</button>
-</div>
+
 {% endblock content %}
