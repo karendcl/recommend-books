@@ -86,7 +86,14 @@ The books with the highest cosine similarity are then recommended to the user. W
 - The number of topics is chosen arbitrarily and it is difficult to know how many topics are truly present in the dataset.
 
 ## Images
-![Home](https://ibb.co/DL05c2S)
+![Home](https://i.postimg.cc/cC4N8c8W/home.png)
+
+![Selection](https://i.postimg.cc/qMWMW93C/Screenshot-2024-02-06-203104.png)
+
+![Recommendation](https://i.postimg.cc/yYD8QVkH/Screenshot-2024-02-06-203202.png)
+
+![Upload](https://i.postimg.cc/ZKnCG8sX/Screenshot-2024-02-06-203239.png)
+
 
 
 
