@@ -10,7 +10,9 @@
     This project is a web application that will recommend books to the user based on a selection of books already read.
 
     <h2> How it works</h2>
-    We use a Latent Dirichlet Allocation (LDA) model to find the topics of the books selected. Then we use the Euclidean distance to find the books that are closer to the ones selected, and therefore the most similar.
+    We use a Latent Dirichlet Allocation (LDA) model to find the topics of the books selected.
+      Then we use the cosine similarity of the vectorized texts to find the books that are most similar to the ones selected by the user.
+
 </p>
   </div>
     
@@ -19,9 +21,9 @@
     <h2> How to use</h2>
     It is pretty straight forward:
     <ol>
-        <li> Click on get a recommendation on the menu </li>
+        <li> Click on 'get recommendations' on the menu </li>
         <li> Select the books you have read </li>
-        <li> Click on get recommendation </li>
+        <li> Click on 'Submit' </li>
     </ol>
 
     <h3>ENJOY!</h3>

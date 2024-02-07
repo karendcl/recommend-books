@@ -85,6 +85,9 @@ The books with the highest cosine similarity are then recommended to the user. W
 - Topics are not 'named' so it is difficult to know what the topics are about. We have to physically infer the topics from the words that are most representative of each topic.
 - The number of topics is chosen arbitrarily and it is difficult to know how many topics are truly present in the dataset.
 
+## Images
+![Home](https://ibb.co/DL05c2S)
+
 
 
 

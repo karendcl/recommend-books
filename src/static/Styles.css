@@ -182,8 +182,8 @@ main {
 
 .Left_Text {
     width: 40%;
-    padding-left: 50px;
-    padding-right: 130px;
+    padding-left: 5%;
+    padding-right: 5%;
     border-right: 2px solid white;
     font-family: 'Lucida Sans';
 
@@ -191,8 +191,8 @@ main {
 
 .Right_Text {
     float: right;
-    padding-right: 40px;
-    padding-left: 20px;
+    padding-right: 5%;
+    padding-left: 5%;
     font-family: 'Courier New';
 }
 
@@ -422,4 +422,11 @@ button[type="submit"]:hover {
 
 .Onclick_Button button:hover {
     background: #000000;
+}
+
+.Left_Text h2{
+    font-size: 25px;
+    font-weight: 400;
+    font-family: cursive;
+    font-style: italic;
 }
