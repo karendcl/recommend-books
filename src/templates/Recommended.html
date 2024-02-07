@@ -5,15 +5,15 @@
         {% for i in suggestions %}
       <div class="icon-image">
         <div class="icon">
-          <img src="{{i.image_url}}" alt= "{{ i.title }}"/>
+          <img src="{{i.book.image_url}}" alt= "{{ i.title }}"/>
         </div>
         <div class="hover-image one">
           <div class="img">
-            <img src="{{i.image_url}}" alt= "{{ i.title }}" />
+            <img src="{{i.book.image_url}}" alt= "{{ i.title }}" />
           </div>
           <div class="content">
             <div class="details">
-              <div class="name"> {{i.title}} </div>
+              <div class="name"> {{i.book.title}} <br> Score: {{ i.score }}</div>
             </div>
           </div>
         </div>
