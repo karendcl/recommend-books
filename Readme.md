@@ -13,6 +13,8 @@ topics to a user based on the books they have read.
 - The corpus is composed of books' summaries and not the actual books because we couldn't find an existing database with the content.
 We also consider that a book's main topics must be discussed in a summary of it so the corpus should suffice to make an accurate prediction.
 - The books are in English so the model is trained with English books.
+- In order to tackle the topic modelling problem, we discussed various models, and we chose to use the LDA model, mainly because uses a probabilistic generativa model that assumes each document is composed of a mixture of topics, and each topic is a mixture of words, and can infer the topic distribution for both documents and words, while other models (Like LSA) can only do so for documents. LDA its more complex to implement and slower than other models but it also requires less memory and computational resources.
+- The data is vectorized using the TfidfVectorizer from the sklearn library. We choose this method because transform raw text data into meaningful features, capturing the essence of each document while considering the broader context of the entire corpus.
 
 
 
@@ -49,7 +51,7 @@ The data is preprocessed by removing stop words, punctuation, and numbers. The d
 lemmatized.
 
 ### Model
-The data is vectorized using the TfidfVectorizer from the sklearn library.
+As we have said before the data is vectorized using the TfidfVectorizer from the sklearn library.
 The model is trained using the LDA model from the sklearn library. The number of topics is set to 15
 (amount chosen by analyzing the results).
 We then represent the doc_topic distribution matrix and we save it as a pickle file so that it can be loaded with each search and the model doesn't have to be trained every time.
@@ -84,6 +86,16 @@ The books with the highest cosine similarity are then recommended to the user. W
 - The model is trained on a small dataset and the topics are not always clear.
 - Topics are not 'named' so it is difficult to know what the topics are about. We have to physically infer the topics from the words that are most representative of each topic.
 - The number of topics is chosen arbitrarily and it is difficult to know how many topics are truly present in the dataset.
+
+## Images
+![Home](https://i.postimg.cc/cC4N8c8W/home.png)
+
+![Selection](https://i.postimg.cc/qMWMW93C/Screenshot-2024-02-06-203104.png)
+
+![Recommendation](https://i.postimg.cc/yYD8QVkH/Screenshot-2024-02-06-203202.png)
+
+![Upload](https://i.postimg.cc/ZKnCG8sX/Screenshot-2024-02-06-203239.png)
+
 
 
 

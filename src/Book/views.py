@@ -52,8 +52,6 @@ def load_recommendations(request):
         suggestions = [i+1 for i in suggestions]
         suggestions = [Book.objects.get(id=suggestion) for suggestion in suggestions]
 
-
-
         print(suggestions)
 
         messages.success(request, 'Recommendations created successfully')
@@ -62,10 +60,18 @@ def load_recommendations(request):
         for i in range(len(suggestions)):
             scores[i] = scor[i]
 
-        print(scores)
+        # Create an object that is an extension of Book and has a score
+        class BookScore:
+            def __init__(self, book, score):
+                self.book = book
+                self.score = score
+                #truncate score
+                self.score = round(self.score, 4)
+
+        suggestions = [BookScore(suggestions[i], scores[i]) for i in range(len(suggestions))]
 
 
-        return render(request, 'Recommended.html', {'suggestions': suggestions, 'scores': scores})
+        return render(request, 'Recommended.html', {'suggestions': suggestions})
 
     else:
         return render(request, 'ViewBooks.html')
