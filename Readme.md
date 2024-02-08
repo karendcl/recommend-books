@@ -88,7 +88,8 @@ The books with the lowest distance are then recommended to the user. We only rec
 - The use of the Euclidean distance could have its limitations like: let's say there are two vectors with the same distance but in opposite directions. In this case I would arguably recommend the book with the higher values, but the Euclidean distance would not be able to differentiate between the two vectors.
 
 ## Images
-![Home](https://i.postimg.cc/cC4N8c8W/home.png)
+
+![Home](https://i.postimg.cc/13q825Jt/Screenshot-2024-02-07-231419.png)
 
 ![Selection](https://i.postimg.cc/qMWMW93C/Screenshot-2024-02-06-203104.png)
 
