@@ -52,12 +52,12 @@ lemmatized.
 
 ### Model
 As we have said before the data is vectorized using the TfidfVectorizer from the sklearn library.
-The model is trained using the LDA model from the sklearn library. The number of topics is set to 10
+The model we use is the LDA model from the sklearn library. The number of topics is set to 10
 (amount chosen by analyzing the results).
 We then represent the doc_topic distribution matrix and we save it as a pickle file so that it can be loaded with each search and the model doesn't have to be trained every time.
 
 > #### TfidfVectorizer
-> TfidfVectorizer is a method that transforms text to feature vectors that can be used as input to estimator.
+> TfidfVectorizer is a method that transforms text to feature vectors.
 > It is a common method to convert text data to a matrix of token counts. It is important to note that the TfidfVectorizer
 > method also normalizes the data.
 > 
