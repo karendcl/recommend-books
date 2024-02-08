@@ -196,8 +196,6 @@ def make_suggestion(docs_read):
 
     mask = [True if i in docs_read else False for i in range(count)]
 
-    print(mask)
-
     docs_read = model[mask]
 
     docs_not_read_ind = [i for i in range(count) if mask[i] == False]
@@ -225,10 +223,8 @@ def make_suggestion(docs_read):
 
     docs_not_read = sorted(dict.items(), key=lambda x: x[1])
 
-    print(avg_read)
     ind = [i[0] for i in docs_not_read][:5]
     rows = model[ind]
-    print(rows)
 
     #return indices of the most similar docs
     return [i[0] for i in docs_not_read][:5] , [100 - i[1] * 100 for i in docs_not_read][:5]
