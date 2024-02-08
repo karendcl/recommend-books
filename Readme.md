@@ -13,6 +13,8 @@ topics to a user based on the books they have read.
 - The corpus is composed of books' summaries and not the actual books because we couldn't find an existing database with the content.
 We also consider that a book's main topics must be discussed in a summary of it so the corpus should suffice to make an accurate prediction.
 - The books are in English so the model is trained with English books.
+- In order to tackle the topic modelling problem, we discussed various models, and we chose to use the LDA model, mainly because uses a probabilistic generativa model that assumes each document is composed of a mixture of topics, and each topic is a mixture of words, and can infer the topic distribution for both documents and words, while other models (Like LSA) can only do so for documents. LDA its more complex to implement and slower than other models but it also requires less memory and computational resources.
+- The data is vectorized using the TfidfVectorizer from the sklearn library. We choose this method because transform raw text data into meaningful features, capturing the essence of each document while considering the broader context of the entire corpus.
 
 
 
@@ -49,7 +51,7 @@ The data is preprocessed by removing stop words, punctuation, and numbers. The d
 lemmatized.
 
 ### Model
-The data is vectorized using the TfidfVectorizer from the sklearn library.
+As we have said before the data is vectorized using the TfidfVectorizer from the sklearn library.
 The model is trained using the LDA model from the sklearn library. The number of topics is set to 15
 (amount chosen by analyzing the results).
 We then represent the doc_topic distribution matrix and we save it as a pickle file so that it can be loaded with each search and the model doesn't have to be trained every time.
