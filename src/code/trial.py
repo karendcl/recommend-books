@@ -31,13 +31,28 @@ def remove_stops(text : string, stops :list) -> string:
     """
     #remove stop words
     words = text.split()
-    final = ' '.join([word for word in words if word not in stops])
-
-    #remove extra spaces
-    while "  " in final:
-        final = final.replace("  ", " ")
+    final = ' '.join([word for word in words if (word not in stops
+                      and word not in string.punctuation)])
 
     return final
+
+def remove_nums(text : string) -> string:
+    """ Remove numbers from the text
+
+    Parameters:
+        text (str): the text to be cleaned
+
+    Returns:
+        str: the cleaned text
+    """
+    txt = text.split()
+    for i in txt:
+        try:
+            int(i)
+            txt.remove(i)
+        except:
+            pass
+    return ' '.join(txt)
 
 def clean_text(text : string) -> string:
     """ Clean the text by removing stop words and lemmatizing the words
@@ -59,6 +74,7 @@ def clean_text(text : string) -> string:
     words = cleaned.split()
     lemmatized = [lemmatizer.lemmatize(word) for word in words]
     cleaned = ' '.join(lemmatized)
+    cleaned = remove_nums(cleaned)
 
     return cleaned
 
@@ -87,18 +103,24 @@ Returns:
     lda_components = model.components_
     terms = count_vectorizer.get_feature_names_out()
 
-    #print the topics
-    for i, topic in enumerate(lda_components):
-        print(f"Top words for topic {i}\n")
-        print([terms[i] for i in topic.argsort()[-10:]])
-        print("\n")
+    #create json file with the topics
+    with open(os.path.join(directory, 'topics.json'), 'w') as f:
+        f.write("{\n")
+        for i, topic in enumerate(lda_components):
+            f.write(f'"{i}": {{"topic": {i}, "words": {str([terms[i] for i in topic.argsort()[-10:]])}}}')
+            if i != num_topics-1:
+                f.write(",\n")
+        f.write("\n}")
 
     with open(os.path.join(directory, 'lda_matrix.pkl'), 'wb') as f:
         pickle.dump(lda_matrix, f)
 
     #build document-topic matrix
     doc_topic = pd.DataFrame(lda_matrix, columns=["Topic "+str(i) for i in range(num_topics)], index=["Doc "+str(i) for i in range(len(documents))])
-    print(doc_topic)
+
+    #save doc_topic as json
+    doc_topic.to_json(os.path.join(directory, 'doc_topic.json'))
+
 
 
 def Amount_of_topics(documents):
@@ -130,11 +152,21 @@ def update(texts):
     #clean data
     texts = [clean_text(i) for i in texts]
     lda_model(texts, Amount_of_topics(texts))
+    plot_scatter_clusters()
 
 def determine_topics(vector):
+    """
+    Determine the most relevant topics in a vector
+
+    Parameters:
+        vector (list): the vector to be analyzed
+
+    Returns:
+        list: the indices of the most relevant topics
+    """
     tops = np.argsort(vector)[::-1]
     tops = tops[:3]
-    if vector[tops[2]] > 0.3:
+    if vector[tops[2]] > 0.2:
         return tops
     return tops[:2]
 
@@ -183,15 +215,15 @@ def make_suggestion(docs_read):
 
     #order the docs not read by similarity to the avg of docs read
     def similarity(x):
-        #cosine similarity between vectors
-        return np.dot(x, avg_read) / (np.linalg.norm(x) * np.linalg.norm(avg_read))
+        #eucledean distance
+        return np.linalg.norm(avg_read - x)
 
     dict = {}
 
     for i in docs_not_read_ind:
         dict[i] = similarity(model[i])
 
-    docs_not_read = sorted(dict.items(), key=lambda x: x[1], reverse=True)
+    docs_not_read = sorted(dict.items(), key=lambda x: x[1])
 
     print(avg_read)
     ind = [i[0] for i in docs_not_read][:5]
@@ -199,7 +231,7 @@ def make_suggestion(docs_read):
     print(rows)
 
     #return indices of the most similar docs
-    return [i[0] for i in docs_not_read][:5] , [i[1] for i in docs_not_read][:5]
+    return [i[0] for i in docs_not_read][:5] , [100 - i[1] * 100 for i in docs_not_read][:5]
 
 def plot_scatter_clusters():
     """
@@ -212,14 +244,20 @@ def plot_scatter_clusters():
     with open(os.path.join(directory, 'lda_matrix.pkl'), 'rb') as f:
         model = pickle.load(f)
 
-    tsne = TSNE(n_components=2, random_state=0, perplexity=15)
+    #using k-means to cluster the data
+    from sklearn.cluster import KMeans
 
-    X_2d = tsne.fit_transform(model)
+    kmeans = KMeans(n_clusters=10, random_state=0).fit(model)
+    labels = kmeans.labels_
 
-    plt.figure(figsize=(6, 5))
-    plt.scatter(X_2d[:, 0], X_2d[:, 1], c=model[:, 0], cmap='viridis')
+    #plot the model coloring the clusters according to their labels
+    tsne = TSNE(n_components=2, random_state=0)
+    features = tsne.fit_transform(model)
+    plt.scatter(features[:, 0], features[:, 1], c=labels)
+    plt.savefig(os.path.join('static', 'clusters.png'))
 
-    plt.savefig(os.path.join(os.getcwd(),'static','clusters.png'))
+
+
 
 
 
