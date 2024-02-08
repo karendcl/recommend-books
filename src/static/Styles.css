@@ -114,6 +114,7 @@
   opacity: 1;
   transform: translateY(4px);
   pointer-events: auto;
+    right: 12%;
 }
 .details::before{
   content: '';
@@ -121,7 +122,7 @@
   height: 20px;
   width: 20px;
   background: #fff;
-  left: 40%;
+  left: 50%;
   bottom: -15px;
   transform: rotate(45deg) translateX(-50%);
   z-index: -1;
