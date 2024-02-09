@@ -87,3 +87,19 @@ def update(request):
 
 def plot(request):
     trial.plot_scatter_clusters()
+
+
+def load_from_json(request):
+    with open(os.path.join(BASE_DIR, 'data.json')) as f:
+        data = json.load(f)
+        for book in data:
+            title = data[book]['title']
+            author = data[book]['author']
+            img = data[book]['image']
+            text = data[book]['description']
+            book = Book(title=title, author=author, image_url=img, description=text)
+            try:
+                book.save()
+            except:
+                pass
+    return render(request, 'HomePage.html')

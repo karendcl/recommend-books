@@ -123,7 +123,7 @@ Returns:
 
 
 
-def Amount_of_topics(documents):
+def Amount_of_topics():
     """
     Calculate the amount of topics to be used in the LDA model
 
@@ -133,7 +133,7 @@ def Amount_of_topics(documents):
     Returns:
         int: the amount of topics to be used
     """
-    return 10
+    return 270
 
 
 def update(texts):
@@ -151,8 +151,8 @@ def update(texts):
 
     #clean data
     texts = [clean_text(i) for i in texts]
-    lda_model(texts, Amount_of_topics(texts))
-    plot_scatter_clusters()
+    lda_model(texts, Amount_of_topics())
+    print(f'Entropy: {enthropy_model()}')
 
 def determine_topics(vector):
     """
@@ -165,10 +165,14 @@ def determine_topics(vector):
         list: the indices of the most relevant topics
     """
     tops = np.argsort(vector)[::-1]
-    tops = tops[:3]
-    if vector[tops[2]] > 0.2:
-        return tops
-    return tops[:2]
+
+    for i in range(len(tops)):
+        if vector[tops[i]] < 0.05:
+            return tops[:i]
+
+    return tops
+
+
 
 def make_suggestion(docs_read):
     """
@@ -206,10 +210,10 @@ def make_suggestion(docs_read):
     #determine the most relevant topics
     topics = determine_topics(avg_read)
 
-
     #reduce the model to the most relevant topics
     model = model[:, topics]
     avg_read = avg_read[topics]
+    print(avg_read)
 
     #order the docs not read by similarity to the avg of docs read
     def similarity(x):
@@ -223,35 +227,22 @@ def make_suggestion(docs_read):
 
     docs_not_read = sorted(dict.items(), key=lambda x: x[1])
 
-    ind = [i[0] for i in docs_not_read][:5]
-    rows = model[ind]
-
     #return indices of the most similar docs
     return [i[0] for i in docs_not_read][:5] , [100 - i[1] * 100 for i in docs_not_read][:5]
 
-def plot_scatter_clusters():
-    """
-    Plot a scatter plot of the clusters
 
-    Returns:
-        None
+def enthropy_model():
 
-    """
     with open(os.path.join(directory, 'lda_matrix.pkl'), 'rb') as f:
         model = pickle.load(f)
 
-    #using k-means to cluster the data
-    from sklearn.cluster import KMeans
+    #calculate the entropy of each topic
+    entropy = -np.sum(model * np.log(model), axis=0)
 
-    kmeans = KMeans(n_clusters=10, random_state=0).fit(model)
-    labels = kmeans.labels_
+    #calculate the average entropy
+    avg_entropy = np.mean(entropy)
 
-    #plot the model coloring the clusters according to their labels
-    tsne = TSNE(n_components=2, random_state=0)
-    features = tsne.fit_transform(model)
-    plt.scatter(features[:, 0], features[:, 1], c=labels)
-    plt.savefig(os.path.join('static', 'clusters.png'))
-
+    return avg_entropy
 
 
 
