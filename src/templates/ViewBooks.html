@@ -45,7 +45,7 @@
         {
             if (recentAction == "Next")
             {
-                indiceActual -= 12;
+                indiceActual -= 24;
             }
 
             for (let i = 0; i < numImagenes; i++)
@@ -55,18 +55,28 @@
 
             let number = 0;
             let PassRow = false;
+            let PassSecondRow = false;
 
-            for (let j = indiceActual - 12; j < indiceActual; j++)
+            for (let j = indiceActual - 24; j < indiceActual; j++)
             {
                 const i = (j + numImagenes) % numImagenes;
                 if (i < numImagenes)
                 {
                     imagenes[i].style.visibility = 'visible';
                     imagenes[i].style.position = 'fixed';
-                    if (number == 6)
+                    if (number == 8)
                     {
                         number = 0
-                        PassRow = true;
+
+                        if(!PassRow)
+                        {
+                            PassRow = true;
+                        }
+
+                        else
+                        {
+                            PassSecondRow = true;
+                        }
                     }
 
                     if (!PassRow)
@@ -74,9 +84,14 @@
                         imagenes[i].style.top = '10px';
                     }
 
-                    else
+                    if (PassRow && !PassSecondRow)
                     {
                         imagenes[i].style.top = '230px';
+                    }
+
+                    if (PassSecondRow)
+                    {
+                        imagenes[i].style.top = '450px';
                     }
 
                     imagenes[i].style.left = number * 150 + 'px';
@@ -86,10 +101,10 @@
                 number ++;
             }
 
-            indiceActual -= 12;
+            indiceActual -= 24;
             if (indiceActual < 0)
             {
-                indiceActual = numImagenes -12;
+                indiceActual = numImagenes -24;
             }
 
             recentAction = "Prev";
@@ -99,7 +114,7 @@
         {
             if (recentAction == "Prev")
             {
-                indiceActual += 12;
+                indiceActual += 24;
                 if (indiceActual >= numImagenes)
                 {
                     indiceActual = 0;
@@ -112,17 +127,28 @@
 
             let number = 0;
             let PassRow = false;
+            let PassSecondRow = false;
 
-            for (let i = indiceActual; i < indiceActual + 12; i++)
+            for (let j = indiceActual; j < indiceActual +24; j++)
             {
+                const i = (j + numImagenes) % numImagenes;
                 if (i < numImagenes)
                 {
                     imagenes[i].style.visibility = 'visible';
                     imagenes[i].style.position = 'fixed';
-                    if (number == 6)
+                    if (number == 8)
                     {
                         number = 0
-                        PassRow = true;
+
+                        if(!PassRow)
+                        {
+                            PassRow = true;
+                        }
+
+                        else
+                        {
+                            PassSecondRow = true;
+                        }
                     }
 
                     if (!PassRow)
@@ -130,9 +156,14 @@
                         imagenes[i].style.top = '10px';
                     }
 
-                    else
+                    if (PassRow && !PassSecondRow)
                     {
                         imagenes[i].style.top = '230px';
+                    }
+
+                    if (PassSecondRow)
+                    {
+                        imagenes[i].style.top = '450px';
                     }
 
                     imagenes[i].style.left = number * 150 + 'px';
@@ -142,7 +173,7 @@
                 number ++;
             }
 
-            indiceActual += 12;
+            indiceActual += 24;
             if (indiceActual >= numImagenes)
             {
                 indiceActual = 0;
