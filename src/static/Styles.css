@@ -432,9 +432,8 @@ button[type="submit"]:hover {
 .NextPrevButtons {
     position: fixed;
     bottom: 20px;
-    left: 43%;
-    right: 50%;
-    float: left;
+    left: 56%;
+    float: right;
     display: flex;
 }
 

@@ -45,7 +45,7 @@
         {
             if (recentAction == "Next")
             {
-                indiceActual -= 24;
+                indiceActual -= 16;
             }
 
             for (let i = 0; i < numImagenes; i++)
@@ -55,9 +55,8 @@
 
             let number = 0;
             let PassRow = false;
-            let PassSecondRow = false;
 
-            for (let j = indiceActual - 24; j < indiceActual; j++)
+            for (let j = indiceActual - 16; j < indiceActual; j++)
             {
                 const i = (j + numImagenes) % numImagenes;
                 if (i < numImagenes)
@@ -67,31 +66,17 @@
                     if (number == 8)
                     {
                         number = 0
-
-                        if(!PassRow)
-                        {
-                            PassRow = true;
-                        }
-
-                        else
-                        {
-                            PassSecondRow = true;
-                        }
+                        PassRow = true;
                     }
 
                     if (!PassRow)
                     {
-                        imagenes[i].style.top = '10px';
+                        imagenes[i].style.top = '20px';
                     }
 
-                    if (PassRow && !PassSecondRow)
+                    else
                     {
-                        imagenes[i].style.top = '230px';
-                    }
-
-                    if (PassSecondRow)
-                    {
-                        imagenes[i].style.top = '450px';
+                        imagenes[i].style.top = '320px';
                     }
 
                     imagenes[i].style.left = number * 150 + 'px';
@@ -101,10 +86,10 @@
                 number ++;
             }
 
-            indiceActual -= 24;
+            indiceActual -=16;
             if (indiceActual < 0)
             {
-                indiceActual = numImagenes -24;
+                indiceActual = numImagenes -16;
             }
 
             recentAction = "Prev";
@@ -114,7 +99,7 @@
         {
             if (recentAction == "Prev")
             {
-                indiceActual += 24;
+                indiceActual += 16;
                 if (indiceActual >= numImagenes)
                 {
                     indiceActual = 0;
@@ -127,9 +112,8 @@
 
             let number = 0;
             let PassRow = false;
-            let PassSecondRow = false;
 
-            for (let j = indiceActual; j < indiceActual +24; j++)
+            for (let j = indiceActual; j < indiceActual +16; j++)
             {
                 const i = (j + numImagenes) % numImagenes;
                 if (i < numImagenes)
@@ -139,31 +123,17 @@
                     if (number == 8)
                     {
                         number = 0
-
-                        if(!PassRow)
-                        {
-                            PassRow = true;
-                        }
-
-                        else
-                        {
-                            PassSecondRow = true;
-                        }
+                        PassRow = true;
                     }
 
                     if (!PassRow)
                     {
-                        imagenes[i].style.top = '10px';
+                        imagenes[i].style.top = '20px';
                     }
 
-                    if (PassRow && !PassSecondRow)
+                    else
                     {
-                        imagenes[i].style.top = '230px';
-                    }
-
-                    if (PassSecondRow)
-                    {
-                        imagenes[i].style.top = '450px';
+                        imagenes[i].style.top = '320px';
                     }
 
                     imagenes[i].style.left = number * 150 + 'px';
@@ -173,7 +143,7 @@
                 number ++;
             }
 
-            indiceActual += 24;
+            indiceActual += 16;
             if (indiceActual >= numImagenes)
             {
                 indiceActual = 0;
