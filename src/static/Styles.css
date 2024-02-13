@@ -252,16 +252,13 @@ main {
     flex-wrap: wrap;
     place-items: center;
     max-height: 75vh;
-    overflow-y: scroll;
+    overflow-y:hidden;
     width: 80vw;
 }
 
 .container {
     height: 190px;
     width: 130px;
-    background-color: transparent;
-    box-shadow: 0 0 25px rgba(17, 1, 68, 0.08);
-    border-radius: 15px;
     position: relative;
     margin-left: 10px;
     margin-top: 10px;
@@ -430,4 +427,33 @@ button[type="submit"]:hover {
     font-weight: 400;
     font-family: cursive;
     font-style: italic;
+}
+
+.NextPrevButtons {
+    position: fixed;
+    bottom: 20px;
+    left: 43%;
+    right: 50%;
+    float: left;
+    display: flex;
+}
+
+.NextPrevButtons button {
+    background: #ffa580;
+    color: #FFFFFF;
+    display: block;
+    font: bold 30px sans-serif;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    transition: all .25s ease;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.NextPrevButtons button:hover {
+    background: #000000;
 }

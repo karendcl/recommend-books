@@ -1,7 +1,11 @@
 {% extends "Index.html" %} 
 {% block content %}
 
-
+    <style>
+        .container {
+            visibility: hidden;
+        }
+    </style>
         
     <form action="{% url 'recommendations' %}" method="POST">
         {% csrf_token %}
@@ -12,7 +16,7 @@
         <input type="checkbox" class="checkbox" name="books" value="{{ i.id }}" id="{{ i.id }}"><br>
         <div class="Photo">
         <label for="{{ i.id }}">
-        <img src="{{i.image_url}}" alt= "{{ i.title }}">
+        <img class="GalleryItem" src="{{i.image_url}}" alt= "{{ i.title }}">
     </label>
     </div>
     </div>
@@ -23,6 +27,130 @@
     <button type="submit" >Submit</button>
 </div>
     </form>
+
+    <div class="NextPrevButtons">
+    <button onclick="ShowPrev()"> &#8592; </button>
+    <button onclick="ShowNext()"> &#8594; </button>
+    </div>
+
+    <script>
+        let indiceActual = 0;
+        let recentAction = "Next"
+        const imagenes = document.querySelectorAll("div.container");
+        const numImagenes = imagenes.length;
+
+        ShowNext();
+
+        function ShowPrev()
+        {
+            if (recentAction == "Next")
+            {
+                indiceActual -= 12;
+            }
+
+            for (let i = 0; i < numImagenes; i++)
+            {
+                imagenes[i].style.visibility = 'hidden';
+            }
+
+            let number = 0;
+            let PassRow = false;
+
+            for (let j = indiceActual - 12; j < indiceActual; j++)
+            {
+                const i = (j + numImagenes) % numImagenes;
+                if (i < numImagenes)
+                {
+                    imagenes[i].style.visibility = 'visible';
+                    imagenes[i].style.position = 'fixed';
+                    if (number == 6)
+                    {
+                        number = 0
+                        PassRow = true;
+                    }
+
+                    if (!PassRow)
+                    {
+                        imagenes[i].style.top = '10px';
+                    }
+
+                    else
+                    {
+                        imagenes[i].style.top = '230px';
+                    }
+
+                    imagenes[i].style.left = number * 150 + 'px';
+
+                }
+
+                number ++;
+            }
+
+            indiceActual -= 12;
+            if (indiceActual < 0)
+            {
+                indiceActual = numImagenes -12;
+            }
+
+            recentAction = "Prev";
+        }
+
+        function ShowNext()
+        {
+            if (recentAction == "Prev")
+            {
+                indiceActual += 12;
+                if (indiceActual >= numImagenes)
+                {
+                    indiceActual = 0;
+                }
+            }
+
+            for (let i = 0; i < numImagenes; i++) {
+                imagenes[i].style.visibility = 'hidden';
+            }
+
+            let number = 0;
+            let PassRow = false;
+
+            for (let i = indiceActual; i < indiceActual + 12; i++)
+            {
+                if (i < numImagenes)
+                {
+                    imagenes[i].style.visibility = 'visible';
+                    imagenes[i].style.position = 'fixed';
+                    if (number == 6)
+                    {
+                        number = 0
+                        PassRow = true;
+                    }
+
+                    if (!PassRow)
+                    {
+                        imagenes[i].style.top = '10px';
+                    }
+
+                    else
+                    {
+                        imagenes[i].style.top = '230px';
+                    }
+
+                    imagenes[i].style.left = number * 150 + 'px';
+
+                }
+
+                number ++;
+            }
+
+            indiceActual += 12;
+            if (indiceActual >= numImagenes)
+            {
+                indiceActual = 0;
+            }
+
+            recentAction = "Next";
+        }
+    </script>
     
 {% endblock content %}
 
